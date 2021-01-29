@@ -1,9 +1,7 @@
 package com.example.websocketdemo.model;
+import java.io.Serializable;
 
-/**
- * Created by rajeevkumarsingh on 24/07/17.
- */
-public class ChatMessage {
+public class ChatMessage implements Serializable {
     private MessageType type;
     private String content;
     private String sender;

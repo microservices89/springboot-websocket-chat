@@ -6,16 +6,18 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
-
-/**
- * Created by rajeevkumarsingh on 24/07/17.
- */
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 @Controller
 public class ChatController {
-
+    @Autowired
+    JmsTemplate jmsTemplate;
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+        //activemq  chats
+        System.out.println(jmsTemplate);
+        jmsTemplate.convertAndSend("chats", chatMessage);
         return chatMessage;
     }
 
